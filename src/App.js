@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
+/* eslint no-eval: 0 */
 
 function App() {
   const [value, setValue] = useState("");
