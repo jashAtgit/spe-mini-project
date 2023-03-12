@@ -22,7 +22,7 @@ function App() {
   };
 
   return (
-    <div className="calculator">
+    <div data-testid="calculator" className="calculator">
       <div className="display">{value}</div>
       <div className="buttons">
         <button onClick={handleButtonPress} value="7">
