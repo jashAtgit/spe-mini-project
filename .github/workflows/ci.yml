@@ -27,7 +27,7 @@ jobs:
     - run: npm run build
     - run: npm test
 
-  docker:
+  publish:
     needs: build
     runs-on: ubuntu-latest
 
@@ -44,6 +44,22 @@ jobs:
         dockerfile: Dockerfile
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
+
+  deploy:
+    needs: publish
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Pull Docker image
+        run: docker pull jashsai/spe-mini-project:latest
+      - name: Stop running calculator-spe
+        run: docker stop calculator-spe || true
+      - name: Start new container
+        run: docker run --name calculator-spe -d -p 3000:3000 jashsai/spe-mini-project:latest
+      - name: Clean up unused containers
+        run: docker system prune -af
 
 
 
