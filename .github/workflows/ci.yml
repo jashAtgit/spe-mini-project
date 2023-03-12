@@ -47,19 +47,23 @@ jobs:
 
   deploy:
     needs: publish
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Pull Docker image
-        run: docker pull jashsai/spe-mini-project:latest
-      - name: Stop running calculator-spe
-        run: docker stop calculator-spe || true
-      - name: Start new container
-        run: docker run --name calculator-spe -d -p 3000:3000 jashsai/spe-mini-project:latest
-      - name: Clean up unused containers
-        run: docker system prune -af
+
+      - name: echo cmd
+        run: |
+          echo "Hello World!!!"
+      # - name: Pull Docker image
+      #   run: docker pull jashsai/spe-mini-project:latest
+      # - name: Stop running calculator-spe
+      #   run: docker stop calculator-spe || true
+      # - name: Start new container
+      #   run: docker run --name calculator-spe -d -p 3000:3000 jashsai/spe-mini-project:latest
+      # - name: Clean up unused containers
+      #   run: docker system prune -af
 
 
 
