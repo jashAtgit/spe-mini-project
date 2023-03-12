@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "./Calculator.css";
+import "./App.css";
 
-function Calculator() {
+function App() {
   const [value, setValue] = useState("");
 
   const handleButtonPress = (e) => {
@@ -86,4 +86,4 @@ function Calculator() {
   );
 }
 
-export default Calculator;
+export default App;
