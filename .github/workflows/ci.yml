@@ -50,9 +50,6 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
       - name: Pull Docker image
         run: docker pull jashsai/spe-mini-project:latest
       - name: Stop running calculator-spe
