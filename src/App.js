@@ -62,7 +62,7 @@ function App() {
         <button onClick={handleButtonPress} value="9">
           9
         </button>
-        <button onClick={handleBackspace} className="del" value="<-">
+        <button onClick={handleBackspace} className="del" value="del">
           Del
         </button>
         
