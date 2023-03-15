@@ -51,6 +51,7 @@ function App() {
 
   return (
     <div data-testid="calculator" className="calculator">
+      <p className="desc">ƒ ( x )</p>
       <div className="display">{value}</div>
       <div className="buttons">
         <button onClick={handleButtonPress} value="7">

@@ -239,4 +239,134 @@ test('log base e of a negative number', () => {
   expect(display).toHaveTextContent('NaN');
 });
 
+//sqrt
+test('sqrt functionality', () => {
+  const { getByTestId } = render(<App />);
+  const calculator = getByTestId('calculator');
+  const display = calculator.querySelector('.display');
+  const operator = calculator.querySelector('button[value="Math.sqrt("]');
+  const digit1 = calculator.querySelector('button[value="2"]');
+  const digit2 = calculator.querySelector('button[value="5"]');
+  const right_brac = calculator.querySelector('button[value=")"]');
+  const equals = calculator.querySelector('button[value="="]'); 
+  
+  fireEvent.click(operator);
+  fireEvent.click(digit1);
+  fireEvent.click(digit2);
+  fireEvent.click(right_brac);
+  fireEvent.click(equals); //Math.sqrt(5)=
+  expect(display).toHaveTextContent('5');
+});
+
+test('sqrt edge case : negative number', () => {
+  const { getByTestId } = render(<App />);
+  const calculator = getByTestId('calculator');
+  const display = calculator.querySelector('.display');
+  const operator = calculator.querySelector('button[value="Math.sqrt("]');
+  const minus = calculator.querySelector('button[value="-"]');
+  const digit1 = calculator.querySelector('button[value="3"]');
+  const right_brac = calculator.querySelector('button[value=")"]');
+  const equals = calculator.querySelector('button[value="="]'); 
+  
+  fireEvent.click(operator);
+  fireEvent.click(minus);
+  fireEvent.click(digit1);
+  fireEvent.click(right_brac);
+  fireEvent.click(equals); //Math.sqrt(-3)=
+  expect(display).toHaveTextContent('NaN');
+});
+
+//pow
+test('pow functionality', () => {
+  const { getByTestId } = render(<App />);
+  const calculator = getByTestId('calculator');
+  const display = calculator.querySelector('.display');
+  const digit1 = calculator.querySelector('button[value="2"]');
+  const operator = calculator.querySelector('button[value="**"]');
+  const digit2 = calculator.querySelector('button[value="5"]');
+  const equals = calculator.querySelector('button[value="="]'); 
+  
+  fireEvent.click(digit1);
+  fireEvent.click(operator);
+  fireEvent.click(digit2);
+  fireEvent.click(equals); //2**5
+  expect(display).toHaveTextContent('32');
+});
+
+test('pow edge case: 5**0', () => {
+  const { getByTestId } = render(<App />);
+  const calculator = getByTestId('calculator');
+  const display = calculator.querySelector('.display');
+  const digit1 = calculator.querySelector('button[value="5"]');
+  const operator = calculator.querySelector('button[value="**"]');
+  const digit2 = calculator.querySelector('button[value="0"]');
+  const equals = calculator.querySelector('button[value="="]'); 
+  
+  fireEvent.click(digit1);
+  fireEvent.click(operator);
+  fireEvent.click(digit2);
+  fireEvent.click(equals); //5**0
+  expect(display).toHaveTextContent('1');
+});
+
+test('pow edge case: 5**-2 (negative exponent)', () => {
+  const { getByTestId } = render(<App />);
+  const calculator = getByTestId('calculator');
+  const display = calculator.querySelector('.display');
+  const digit1 = calculator.querySelector('button[value="5"]');
+  const operator = calculator.querySelector('button[value="**"]');
+  const minus = calculator.querySelector('button[value="-"]');
+  const digit2 = calculator.querySelector('button[value="2"]');
+  const equals = calculator.querySelector('button[value="="]'); 
+  
+  fireEvent.click(digit1);
+  fireEvent.click(operator);
+  fireEvent.click(minus);
+  fireEvent.click(digit2);
+  fireEvent.click(equals); //5**-2
+  expect(display).toHaveTextContent('0.04');
+});
+
+test('pow edge case: -5**2, without brackets', () => {
+  const { getByTestId } = render(<App />);
+  const calculator = getByTestId('calculator');
+  const display = calculator.querySelector('.display');
+  const digit1 = calculator.querySelector('button[value="5"]');
+  const operator = calculator.querySelector('button[value="**"]');
+  const minus = calculator.querySelector('button[value="-"]');
+  const digit2 = calculator.querySelector('button[value="2"]');
+  const equals = calculator.querySelector('button[value="="]'); 
+  
+  fireEvent.click(minus);
+  fireEvent.click(digit1);
+  fireEvent.click(operator);
+  fireEvent.click(digit2);
+  fireEvent.click(equals); //-5**2
+  expect(display).toHaveTextContent('Error');
+});
+
+test('pow (-5)**2 test', () => {
+  const { getByTestId } = render(<App />);
+  const calculator = getByTestId('calculator');
+  const display = calculator.querySelector('.display');
+  const digit1 = calculator.querySelector('button[value="5"]');
+  const digit2 = calculator.querySelector('button[value="2"]');
+  const operator = calculator.querySelector('button[value="**"]');
+  const minus = calculator.querySelector('button[value="-"]');
+  const equals = calculator.querySelector('button[value="="]');
+  const left_brac = calculator.querySelector('button[value="("]');
+  const right_brac = calculator.querySelector('button[value=")"]');
+  
+  fireEvent.click(left_brac);
+  fireEvent.click(minus);
+  fireEvent.click(digit1);
+  fireEvent.click(right_brac);
+  fireEvent.click(operator);
+  fireEvent.click(digit2);
+  fireEvent.click(equals); // (-5)**2=
+  expect(display).toHaveTextContent('25');
+});
+
+
+
 });
