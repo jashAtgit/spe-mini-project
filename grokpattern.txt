@@ -1,0 +1,1 @@
+%{QUOTEDSTRING:field}: "%{TIMESTAMP_ISO8601:timestamp}",\n %{QUOTEDSTRING:field2}: %{QUOTEDSTRING:status},\n %{QUOTEDSTRING:field4}: %{QUOTEDSTRING:expression},\n %{QUOTEDSTRING:field6}: %{QUOTEDSTRING:result},\n %{QUOTEDSTRING:field8}: %{INT:id}\n \},\n \{

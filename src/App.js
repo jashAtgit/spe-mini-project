@@ -41,7 +41,6 @@ function downloadLogFile() {
 }
 
 
-
 function App() {
   const [value, setValue] = useState("");
 
@@ -91,6 +90,7 @@ function App() {
   const handleFact = (e) => {
     const res = calcFact(value);
     setValue(res);
+    log("success", value, res);
     
   }
 
