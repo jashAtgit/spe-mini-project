@@ -2,6 +2,46 @@ import React, { useState } from "react";
 import "./App.css";
 /* eslint no-eval: 0 */
 
+import Dexie from 'dexie';
+
+const db = new Dexie('logDatabase');
+
+db.version(1).stores({
+  logs: '++id, timestamp, code, expr, res'
+});
+
+function clear_logs() {
+  db.delete();
+}
+
+
+function log(code, expr, res) {
+  const logEntry = {
+    timestamp: new Date(),
+    code, expr, res
+  };
+  db.logs.add(logEntry);
+}
+
+
+
+function downloadLogFile() {
+  db.logs.toArray().then((logs) => {
+    const logData = JSON.stringify(logs, null, 2);
+    const blob = new Blob([logData], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'log.json';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  });
+}
+
+
+
 function App() {
   const [value, setValue] = useState("");
 
@@ -15,9 +55,14 @@ function App() {
 
   const calculate = () => {
     try {
-      setValue(eval(value).toString());
+      const res = eval(value).toString();
+      setValue(res);
+      log("sucess", value, res);    //logging code
+
     } catch (error) {
       setValue("Error");
+
+      log("error", value, "Error");
     }
   };
 
@@ -50,8 +95,16 @@ function App() {
   }
 
   return (
+    <div >
+      <button className="dlog" onClick={downloadLogFile}>
+      download log
+      </button>
+      <button className="dlog" onClick={clear_logs}>
+      clear logs
+      </button>
     <div data-testid="calculator" className="calculator">
       <p className="desc">ƒ ( x )</p>
+      
       <div className="display">{value}</div>
       <div className="buttons">
         <button onClick={handleButtonPress} value="7">
@@ -139,6 +192,7 @@ function App() {
         
 
       </div>
+    </div>
     </div>
   );
 }
