@@ -24,7 +24,7 @@ function log(code, expr, res) {
 }
 
 
-
+//logging
 function downloadLogFile() {
   db.logs.toArray().then((logs) => {
     const logData = JSON.stringify(logs, null, 2);
@@ -56,7 +56,7 @@ function App() {
     try {
       const res = eval(value).toString();
       setValue(res);
-      log("sucess", value, res);    //logging code
+      log("sucess", value, res);   
 
     } catch (error) {
       setValue("Error");
