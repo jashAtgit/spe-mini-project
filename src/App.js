@@ -55,8 +55,9 @@ function App() {
   const calculate = () => {
     try {
       const res = eval(value).toString();
+      log("sucess", value, res);
       setValue(res);
-      log("sucess", value, res);   
+         
 
     } catch (error) {
       setValue("Error");
@@ -89,7 +90,7 @@ function App() {
 
   const handleFact = (e) => {
     const res = calcFact(value);
-    setValue(res);
+    setValue(res.toString());
     log("success", value, res);
     
   }
